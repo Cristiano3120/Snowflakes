@@ -1,5 +1,9 @@
-﻿namespace Snowflakes;
+﻿using Snowflakes.Converters;
+using System.Text.Json.Serialization;
 
+namespace Snowflakes;
+
+[JsonConverter(typeof(SnowflakeJsonConverter))]
 public readonly struct Snowflake(long value)
 {
     public long Value { get; } = value;
