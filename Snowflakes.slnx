@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Snowflakes/Snowflakes.csproj" />
+  <Project Path="Test/Test.csproj" />
+</Solution>
