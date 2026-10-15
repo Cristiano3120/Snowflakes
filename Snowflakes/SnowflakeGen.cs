@@ -10,7 +10,7 @@ public sealed class SnowflakeGen : ISnowflakeGen
     private const long MaxMachineId = (1L << MachineIdBits) - 1;
     private const long MaxIncrement = (1L << IncrementBits) - 1;
 
-    private static readonly long Epoch = new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero).ToUnixTimeMilliseconds();
+    private readonly long Epoch = new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero).ToUnixTimeMilliseconds();
 
     private readonly long _machineId;
     private long _increment;
@@ -22,6 +22,11 @@ public sealed class SnowflakeGen : ISnowflakeGen
         ArgumentOutOfRangeException.ThrowIfNegative(machineId);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(machineId, MaxMachineId);
         _machineId = machineId;
+    }
+
+    public SnowflakeGen(long machineId, DateTimeOffset epoch) : this(machineId)
+    {
+        Epoch = epoch.ToUnixTimeMilliseconds();
     }
 
     public Snowflake NextId()
