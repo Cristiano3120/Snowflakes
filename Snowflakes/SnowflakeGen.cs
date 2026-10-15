@@ -61,7 +61,7 @@ public sealed class SnowflakeGen : ISnowflakeGen
         _lastTimestamp = currentTimestamp;
     }
 
-    private static long WaitForNextTimestamp(long lastTimestamp)
+    private long WaitForNextTimestamp(long lastTimestamp)
     {
         SpinWait spinner = new();
         long timestamp;
@@ -75,7 +75,7 @@ public sealed class SnowflakeGen : ISnowflakeGen
         return timestamp;
     }
 
-    private static long GetCurrentTimestamp()
+    private long GetCurrentTimestamp()
         => DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - Epoch;
 
     private Snowflake CreateSnowflake()
